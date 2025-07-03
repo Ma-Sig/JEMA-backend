@@ -1,0 +1,144 @@
+import { Router } from "express";
+import VehiculoController from "../controllers/VehiculoController.js";
+
+const Vehiculorouter = Router();
+const vehiculoController = new VehiculoController();
+
+/**
+ * @swagger
+ * tags:
+ *   name: Vehículos
+ *   description: API para gestionar vehículos
+ */
+
+/**
+ * @swagger
+ * /vehiculos:
+ *   get:
+ *     summary: Obtiene todos los vehículos
+ *     tags: [Vehículos]
+ *     responses:
+ *       200:
+ *         description: Lista de vehículos
+ */
+Vehiculorouter.get("/vehiculos", vehiculoController.getAll);
+
+/**
+ * @swagger
+ * /vehiculos/{id}:
+ *   get:
+ *     summary: Obtiene un vehículo por ID
+ *     tags: [Vehículos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del vehículo
+ *     responses:
+ *       200:
+ *         description: Vehículo encontrado
+ *       404:
+ *         description: Vehículo no encontrado
+ */
+Vehiculorouter.get("/vehiculos/:id", vehiculoController.getById);
+
+/**
+ * @swagger
+ * /vehiculos:
+ *   post:
+ *     summary: Crea un nuevo vehículo
+ *     tags: [Vehículos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - modeloId
+ *               - anio
+ *               - colorId
+ *               - precio
+ *               - fechaDeCompra
+ *             properties:
+ *               modeloId:
+ *                 type: integer
+ *               anio:
+ *                 type: integer
+ *               colorId:
+ *                 type: integer
+ *               precio:
+ *                 type: number
+ *               fechaDeCompra:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Vehículo creado
+ */
+Vehiculorouter.post("/vehiculos", vehiculoController.create);
+
+/**
+ * @swagger
+ * /vehiculos/{id}:
+ *   put:
+ *     summary: Modifica un vehículo existente
+ *     tags: [Vehículos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del vehículo a modificar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - modeloId
+ *               - anio
+ *               - colorId
+ *               - precio
+ *             properties:
+ *               modeloId:
+ *                 type: integer
+ *               anio:
+ *                 type: integer
+ *               colorId:
+ *                 type: integer
+ *               precio:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Vehículo modificado
+ *       404:
+ *         description: Vehículo no encontrado
+ */
+Vehiculorouter.put("/vehiculos/:id", vehiculoController.modify);
+
+/**
+ * @swagger
+ * /vehiculos/{id}:
+ *   delete:
+ *     summary: Elimina un vehículo por ID
+ *     tags: [Vehículos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del vehículo a eliminar
+ *     responses:
+ *       200:
+ *         description: Vehículo eliminado
+ *       404:
+ *         description: Vehículo no encontrado
+ */
+Vehiculorouter.delete("/vehiculos/:id", vehiculoController.delete);
+
+export default Vehiculorouter;

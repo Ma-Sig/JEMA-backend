@@ -1,0 +1,124 @@
+import Vehiculo from "../models/Vehiculo.js";
+import Color from "../models/Color.js";
+import Modelo from "../models/Modelo.js";
+import Marca from "../models/Marca.js";
+
+export class VehiculoRepo {
+  async retrieveAll() {
+    try {
+      const vehiculos = await Vehiculo.findAll({
+        include: [
+          { model: Color, as: "color" },
+          {
+            model: Modelo,
+            as: "modelo",
+            include: [
+              {
+                model: Marca,
+                as: "marca",
+              },
+            ],
+          },
+        ],
+      });
+
+      const transformed = vehiculos.map((car) => ({
+        id: car.id,
+        marca: car.modelo.marca.nombre,
+        modelo: car.modelo.nombre,
+        color: car.color.nombre,
+        precio: car.precio,
+        anio: car.anio,
+        fechaDeCompra: car.fechaDeCompra,
+        imagen: car.imagen,
+      }));
+
+      return transformed;
+    } catch (error) {
+      console.error("Error fetching vehicles:", error);
+      throw new Error("Could not fetch vehicles");
+    }
+  }
+
+  async retieveById(id) {
+    try {
+      const vehiculo = await Vehiculo.findByPk(id);
+      return vehiculo;
+    } catch (error) {
+      console.error("Error fetching vehicle:", error);
+      throw new Error("Could not fetch vehicle");
+    }
+  }
+
+  async createVehicle(body) {
+    try {
+      if (
+        !body.modeloId ||
+        !body.anio ||
+        !body.colorId ||
+        !body.precio ||
+        !body.fechaDeCompra
+      ) {
+        throw new Error("All fields are required");
+      }
+
+      const vehiculo = await Vehiculo.create({
+        modeloId: body.modeloId,
+        anio: body.anio,
+        colorId: body.colorId,
+        precio: body.precio,
+        fechaDeCompra: body.fechaDeCompra,
+        imagen: body.imagen || null, // Optional field
+      });
+
+      return vehiculo;
+    } catch (error) {
+      console.error("Error creating vehicle:", error);
+      throw new Error("Could not create vehicle");
+    }
+  }
+
+  async deleteVehicle(id) {
+    try {
+      if (!id || isNaN(Number(id))) {
+        throw new Error("Invalid ID");
+      }
+
+      const vehiculo = await Vehiculo.findByPk(id);
+      if (vehiculo) {
+        await vehiculo.destroy();
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error deleting vehicle:", error);
+      throw new Error(`Could not delete vehicle with ID ${id}`);
+    }
+  }
+
+  async modifyVehicle(id, body) {
+    try {
+      if (!id || isNaN(Number(id))) {
+        throw new Error("Invalid ID");
+      }
+      const vehiculo = await Vehiculo.findByPk(id);
+
+      if (vehiculo) {
+        vehiculo.modeloId = body.modeloId;
+        vehiculo.anio = body.anio;
+        vehiculo.colorId = body.colorId;
+        vehiculo.precio = body.precio;
+        vehiculo.fechaDeCompra = body.fechaDeCompra;
+        vehiculo.imagen = body.imagen || null; // Optional field
+
+        await vehiculo.save();
+
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error modifiying vehicle:", error);
+      throw new Error("Could not modify vehicle");
+    }
+  }
+}
