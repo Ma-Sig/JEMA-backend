@@ -1,8 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
 import Usuario from "./Usuario.js";
-import Inventario from "./Inventario.js";
-import LugarDestino from "./LugarDestino.js";
+import Lugar from "./Lugar.js";
 
 const Prestamo = sequelize.define(
   "Prestamo",
@@ -28,20 +27,12 @@ const Prestamo = sequelize.define(
         key: "id_usuario",
       },
     },
-    id_inventario: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Inventario,
-        key: "id",
-      },
-    },
     id_lugar_destino: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: LugarDestino,
-        key: "id",
+        model: Lugar,
+        key: "id_lugar",
       },
     },
     fecha: {

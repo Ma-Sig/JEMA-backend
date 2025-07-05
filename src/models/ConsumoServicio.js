@@ -16,7 +16,7 @@ const ConsumoServicio = sequelize.define(
       allowNull: false,
       references: {
         model: Servicio,
-        key: "id",
+        key: "id_servicio",
       },
     },
     id_lugar: {

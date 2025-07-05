@@ -17,7 +17,7 @@ const Item = sequelize.define(
       allowNull: false,
       references: {
         model: Lugar,
-        key: "id",
+        key: "id_lugar",
       },
     },
     id_tipo_item: {
@@ -25,7 +25,7 @@ const Item = sequelize.define(
       allowNull: false,
       references: {
         model: TipoItem,
-        key: "id",
+        key: "id_tipo_item",
       },
     },
     id_item_estado: {

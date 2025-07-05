@@ -15,7 +15,7 @@ const Servicio = sequelize.define(
       allowNull: false,
       references: {
         model: Unidad,
-        key: "id",
+        key: "id_unidad",
       },
     },
     nombre: {

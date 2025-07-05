@@ -1,13 +1,13 @@
-import Auditoria from "./Auditoria";
-import ConsumoServicio from "./ConsumoServicio";
-import Item from "./Item";
-import ItemEstado from "./ItemEstado";
-import Lugar from "./Lugar";
-import Prestamo from "./Prestamo";
-import Servicio from "./Servicio";
-import TipoItem from "./TipoItem";
-import Unidad from "./Unidad";
-import Usuario from "./Usuario";
+import Auditoria from "./Auditoria.js";
+import ConsumoServicio from "./ConsumoServicio.js";
+import Item from "./Item.js";
+import ItemEstado from "./ItemEstado.js";
+import Lugar from "./Lugar.js";
+import Prestamo from "./Prestamo.js";
+import Servicio from "./Servicio.js";
+import TipoItem from "./TipoItem.js";
+import Unidad from "./Unidad.js";
+import Usuario from "./Usuario.js";
 
 
 Auditoria.belongsTo(Usuario, { 
@@ -52,16 +52,12 @@ Prestamo.belongsTo(Usuario, {
   as: "usuarioOrigen"
 });
 Prestamo.belongsTo(Usuario, { 
-  foreignKey: "id_usuario_destino",
+  foreignKey: "id_usuario",
   as: "usuarioDestino"
 });
-Prestamo.belongsTo(Inventario, { 
-  foreignKey: "id_inventario",
-  as: "inventarios"
-});
-Prestamo.belongsTo(LugarDestino, { 
-  foreignKey: "id_lugar_destino",
-  as: "lugaresDestino"
+Prestamo.belongsTo(Lugar, { 
+  foreignKey: "id_lugar",
+  as: "lugarDestino"
 });
 
 Servicio.belongsTo(Unidad, { 
