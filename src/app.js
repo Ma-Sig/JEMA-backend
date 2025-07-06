@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './config/swagger.js';
 import UsuarioRouter from './routes/UsuarioRoutes.js';
 import ItemEstadoRouter from './routes/ItemEstadoRoutes.js'
+import LugarRouter from './routes/LugarRoutes.js'
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // app.use("/api", Vehiculorouter);
 app.use('/api', UsuarioRouter);
 app.use('/api', ItemEstadoRouter);
+app.use('/api', LugarRouter);
 
 export default app;
