@@ -11,7 +11,7 @@ class UsuarioController {
             const usuarios = await this.usuarioRepo.retrieveAll();
             res.status(200).json(usuarios);
         }catch (error) {
-            console.log("Error al obtener a los usuarios: ", error);
+            console.error("Error al obtener a los usuarios: ", error);
             res.status(500).json({ message: "No se pudo obtener a los usuarios"});
         }
     };
@@ -21,7 +21,7 @@ class UsuarioController {
             const usuario = await this.usuarioRepo.createUsuario(req.body);
             res.status(201).json(usuario);
         } catch (error) {
-            console.log("No se pudo crear al usuario: ", error);
+            console.error("No se pudo crear al usuario: ", error);
             res.status(500).json({ message: "No se puedo crear al usuario."});
         }
     }
@@ -33,7 +33,7 @@ class UsuarioController {
             res.status(200).json(usuario);
             
         } catch (error) {
-            console.log("Error al obtener al usuario: ", error);
+            console.error("Error al obtener al usuario: ", error);
             res.status(500).json({ message: "No se pudo obtener al usuario."});
         }
     }

@@ -8,7 +8,7 @@ const usuarioController = new UsuarioController();
  * @swagger
  * tags:
  *   name: Usuarios
- *   description: API para gestionar Usuarios
+ *   description: Endpoints para gestionar Usuarios
  */
 
 /**

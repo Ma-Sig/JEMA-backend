@@ -5,7 +5,7 @@ export class UsuarioRepo{
         try {
             return await Usuario.findAll({attributes: {exclude: ['password']}});
         } catch (error){
-            console.log("Error obteniendo a los usuarios", error);
+            console.error("Error obteniendo a los usuarios", error);
             throw new Error("No se pudieron obtener a los usuarios");
         }
     }
@@ -31,12 +31,12 @@ export class UsuarioRepo{
                 celular: body.celular,
                 imagen: body.imagen || null,
                 password: body.password,
-            })
+            });
 
             return usuario;
 
         } catch (error) {
-            console.log("Error al crear al usuario: ", error);
+            console.error("Error al crear al usuario: ", error);
             throw new Error("No se pudo crear al usuario");
         }
     }
@@ -46,7 +46,7 @@ export class UsuarioRepo{
             const usuario = await Usuario.findByPk(id);
             return usuario;
         } catch (error){
-            console.log("Error al obtener al usuario: ", error);
+            console.error("Error al obtener al usuario: ", error);
             throw new Error("No se puedo obtener al usuario");
         }
     }
