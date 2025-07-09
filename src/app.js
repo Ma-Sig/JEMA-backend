@@ -5,11 +5,13 @@ import swaggerSpec from './config/swagger.js';
 import UsuarioRouter from './routes/UsuarioRoutes.js';
 import ItemEstadoRouter from './routes/ItemEstadoRoutes.js'
 import LugarRouter from './routes/LugarRoutes.js'
+import ConsumoServicioRouter from './routes/ConsumoServicioRoutes.js';
+import UnidadRouter from './routes/UnidadRoutes.js';
 
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: '*',
     credentials: true
 }))
 
@@ -17,9 +19,11 @@ app.use(express.json());
 
 //PARA VER EL CONTENIDO DE SWAGGER HAY QUE ENTRAR A http://localhost:3000/api-docs/
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-// app.use("/api", Vehiculorouter);
+
 app.use('/api', UsuarioRouter);
 app.use('/api', ItemEstadoRouter);
 app.use('/api', LugarRouter);
+app.use('/api', ConsumoServicioRouter);
+app.use('/api', UnidadRouter);
 
 export default app;
