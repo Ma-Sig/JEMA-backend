@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Add execute permissions to tests script
-      - run: chmod +x ./run-tests.sh
+        run: chmod +x ./run-tests.sh
 
       - name: Run tests
         run: npm run test:linux
