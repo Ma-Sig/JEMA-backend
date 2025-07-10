@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "BRUNO-TESTING",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

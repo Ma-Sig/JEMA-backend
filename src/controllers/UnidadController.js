@@ -8,12 +8,12 @@ class UnidadController {
 
     getAll = async (req, res) => {
         try {
-            const consumosDeServicios = await this.unidadRepo.retrieveAll();
-            res.status(200).json(consumosDeServicios);
+            const unidades = await this.unidadRepo.retrieveAll();
+            res.status(200).json(unidades);
             
         }catch (error) {
-            console.error("Error al obtener a los consumos de servicios: ", error);
-            res.status(500).json({ message: "No se pudo obtener a los consumos de servicios"});
+            console.error("Error al obtener las unidades: ", error);
+            res.status(500).json({ message: "No se pudieron obtener las unidades"});
         }
     };
 

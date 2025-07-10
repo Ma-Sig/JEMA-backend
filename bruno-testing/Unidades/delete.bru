@@ -1,0 +1,33 @@
+meta {
+  name: delete
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{BASE_URL}}/api/unidades/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: {{unidadId}}
+}
+
+script:post-response {
+  const jsonResponse = res.body;
+  
+  test('Respuesta 200', () => {
+      expect(res.status).to.equal(200);
+  });
+  
+  test('Regresa un json con los campos correspondientes', () => {
+      expect(jsonResponse).to.be.a('object');
+      expect(jsonResponse).to.have.property('message');
+      expect(jsonResponse.message).to.equal('Unidad eliminada exitosamente.');
+  
+      bru.deleteEnvVar('unidadNombre');
+      bru.deleteEnvVar('unidadId');
+  });
+  
+}

@@ -1,0 +1,37 @@
+meta {
+  name: create
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/api/consumos-servicio
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id_servicio": 1,
+    "id_lugar": 2,
+    "cantidad": 10.5,
+    "fecha": "2025-07-08"
+  }
+}
+
+script:post-response {
+  const jsonResponse = res.body;
+  
+  test('Respuesta 201', () => {
+      expect(res.status).to.equal(201);
+  });
+  
+  test('El cuerpo de la respuesta contiene los datos correctos', () => {
+      expect(jsonResponse).to.have.property('id_consumo_servicio');
+      expect(jsonResponse.id_servicio).to.equal(1);
+      expect(jsonResponse.id_lugar).to.equal(2);
+      expect(jsonResponse.cantidad).to.equal(10.5);
+      expect(jsonResponse.fecha).to.equal('2025-07-08');
+  });
+  
+}

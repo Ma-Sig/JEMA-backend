@@ -1,0 +1,15 @@
+meta {
+  name: getByIdLugar
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{BASE_URL}}/api/consumos-servicio/lugar/:id_lugar
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id_lugar: 
+}

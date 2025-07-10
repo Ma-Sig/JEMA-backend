@@ -1,0 +1,45 @@
+meta {
+  name: getAll
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/api/consumos-servicio
+  body: none
+  auth: inherit
+}
+
+script:post-response {
+  const jsonData = res.body;
+  
+  test('Respuesta 200', () => {
+      expect(res.status).to.equal(200);
+  });
+  
+  test('Regresa un array', () => {
+      expect(jsonData).to.be.a('array');
+  });
+  
+  test('El primer elemento tiene las propiedades y tipo de valor correspondiente', () => {
+      if (jsonData.length > 0) {
+          const firstItem = jsonData[0];
+          
+          expect(firstItem).to.have.property('id_consumo_servicio');
+          expect(firstItem.id_consumo_servicio).to.be.a('number');
+          
+          expect(firstItem).toHaveProperty('id_servicio');
+          expect(firstItem.id_servicio).toBeNumber();
+          
+          expect(firstItem).to.have.property('id_lugar');
+          expect(firstItem.id_lugar).to.be.a('number');
+          
+          expect(firstItem).to.have.property('cantidad');
+          expect(firstItem.cantidad).to.be.a('number');
+          
+          expect(firstItem).to.have.property('fecha');
+          /^\d{4}-\d{2}-\d{2}$/.test(firstItem.fecha);
+      }
+  });
+  
+}

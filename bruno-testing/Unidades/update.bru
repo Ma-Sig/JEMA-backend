@@ -1,0 +1,47 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BASE_URL}}/api/unidades/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: {{unidadId}}
+}
+
+body:json {
+  {
+    "nombre": "{{unidadNombre}}"
+  }
+}
+
+script:pre-request {
+  const uniqueName = 'Unidad TEST Modificado ' + new Date().getTime();
+  
+  bru.setEnvVar('unidadNombre', uniqueName);
+  
+}
+
+script:post-response {
+  const jsonResponse = res.body;
+  
+  test('Respuesta 200', () => {
+      expect(res.status).to.equal(200);
+  });
+  
+  test('Regresa un json con los campos correspondientes', () => {
+      expect(jsonResponse).to.be.a('object');
+      expect(jsonResponse).to.have.property('nombre');
+      expect(jsonResponse.nombre).to.equal(bru.getEnvVar('unidadNombre'));
+  
+      expect(jsonResponse).to.have.property('id_unidad');
+      expect(jsonResponse.id_unidad).to.be.a('number');
+      expect(jsonResponse.id_unidad).to.equal(bru.getEnvVar('unidadId'));
+  });
+  
+}

@@ -41,7 +41,7 @@ ConsumoServicioRouter.get("/consumos-servicio", consumoServicioController.getAll
  *         name: id_consumo
  *         required: true
  *         schema:
- *           type: string
+ *           type: object
  *         description: ID del consumo de servicio
  *     responses:
  *       200:

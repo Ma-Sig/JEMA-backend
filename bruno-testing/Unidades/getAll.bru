@@ -1,0 +1,32 @@
+meta {
+  name: getAll
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/api/unidades
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.body: isArray
+}
+
+script:post-response {
+  const dataReturned = res.getBody();
+  
+  test("Debe retornar estado 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+   
+  test('El primer elemento tiene la propiedad "nombre" y su valor es un string', () => {
+    const jsonData = res.getBody();
+    const firsItem = jsonData[0];
+      
+    expect(firsItem).to.have.property('nombre');
+    expect(firsItem.nombre).to.be.a('string');
+  });
+  
+}

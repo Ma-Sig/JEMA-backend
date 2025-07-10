@@ -1,0 +1,15 @@
+meta {
+  name: delete
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{BASE_URL}}/api/consumos-servicio/:id_consumo
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id_consumo: 
+}
