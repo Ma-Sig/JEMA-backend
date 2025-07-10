@@ -31,8 +31,17 @@ jobs:
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
           echo "DB_SCHEMA=${{ secrets.DB_SCHEMA }}" >> .env
 
-      - name: Run backend
-        run: npm run dev
+      - name: Run backend in background
+        run: npm run dev &  # Esto ejecutará el servidor en segundo plano
+
+      - name: Wait for backend to be ready
+        run: |
+          # Esperar a que el backend esté disponible (puedes usar curl o nc)
+          echo "Waiting for backend to be ready..."
+          while ! curl -s http://localhost:3000 > /dev/null; do
+            echo "Waiting for server..."
+            sleep 60
+          done
 
       - name: Add execute permissions to tests script
         run: chmod +x ./run-tests.sh
