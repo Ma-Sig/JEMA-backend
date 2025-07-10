@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test:windows": "run-tests.bat",
+    "test:linux": "./run-tests.sh"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@usebruno/cli": "^2.7.0",
     "nodemon": "^3.1.10"
   }
 }

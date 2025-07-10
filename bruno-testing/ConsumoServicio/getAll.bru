@@ -28,8 +28,8 @@ script:post-response {
           expect(firstItem).to.have.property('id_consumo_servicio');
           expect(firstItem.id_consumo_servicio).to.be.a('number');
           
-          expect(firstItem).toHaveProperty('id_servicio');
-          expect(firstItem.id_servicio).toBeNumber();
+          expect(firstItem).to.have.property('id_servicio');
+          expect(firstItem.id_servicio).to.be.a('number');
           
           expect(firstItem).to.have.property('id_lugar');
           expect(firstItem.id_lugar).to.be.a('number');
@@ -38,7 +38,8 @@ script:post-response {
           expect(firstItem.cantidad).to.be.a('number');
           
           expect(firstItem).to.have.property('fecha');
-          /^\d{4}-\d{2}-\d{2}$/.test(firstItem.fecha);
+          expect(firstItem.fecha).to.be.a('string');
+          expect(/^\d{4}-\d{2}-\d{2}$/.test(firstItem.fecha)).to.be.true;
       }
   });
   
